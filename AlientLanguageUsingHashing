@@ -1,0 +1,34 @@
+public class Solution {
+    public int solve(String[] A, String B) {
+        HashMap<Character,Integer> map = new HashMap<>();
+        for(int i=0; i<B.length(); i++){
+            map.put(B.charAt(i),i);
+        }
+
+        HashMap<Integer,String> check = new HashMap<>();
+        for(int i=0;i<A.length; i++){
+            check.put(i,A[i]);
+        }
+
+        Arrays.sort(A,(a,b)->{
+            int i=0;
+            while(i<Math.min(a.length(),b.length())) {
+                if (a.charAt(i) != b.charAt(i)) {
+                    if(map.get(a.charAt(i))<map.get(b.charAt(i))) return -1;
+                    else return 1;
+                }
+                i++;
+            }
+            if(i==Math.min(a.length(),b.length())){
+                if(a.length()<b.length()) return -1;
+                return 1;
+            }
+            return 0;
+                });
+        
+        for(int i=0; i<A.length; i++){
+            if(check.get(i)!=A[i]) return 0;
+        }
+        return 1;
+    }
+}
